@@ -23,7 +23,7 @@ export const NeonCard = React.forwardRef<HTMLDivElement, NeonCardProps>(
         ref={ref}
         whileHover={{ y: -5 }}
         className={cn(
-          "relative flex flex-col p-8 bg-surface-container-low backdrop-blur-md border transition-all duration-500",
+          "relative flex flex-col p-8 bg-surface-container-low backdrop-blur-md border transition-all duration-700 ease-out",
           isHighlighted ? "border-neon-purple shadow-[0_0_20px_rgba(189,0,255,0.15)]" : "border-white/5",
           !isHighlighted && glowClass[hoverGlow],
           className

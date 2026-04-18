@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-body bg-obsidian text-on-background min-h-screen selection:bg-neon-cyan selection:text-obsidian`}>
+      <body className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} font-body bg-obsidian text-on-background min-h-screen selection:bg-neon-cyan selection:text-obsidian scanlines`}>
         {children}
       </body>
     </html>

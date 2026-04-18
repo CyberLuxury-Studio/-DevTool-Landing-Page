@@ -63,7 +63,7 @@ export const WaitlistInput = React.forwardRef<HTMLInputElement, WaitlistInputPro
               setEmail(e.target.value)
               if (status === "error") setStatus("idle")
             }}
-            placeholder="enter your email_"
+            placeholder="enter your email_" aria-label="Email address for waitlist"
             className={cn(
               "w-full bg-surface-container-low border-b py-4 pl-8 pr-32 font-mono text-sm text-on-surface focus:outline-none focus:ring-0 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed",
               status === "error" ? "border-neon-pink focus:border-neon-pink" : "border-outline-variant focus:border-neon-cyan",

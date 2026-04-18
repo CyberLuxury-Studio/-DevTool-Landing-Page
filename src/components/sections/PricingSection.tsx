@@ -62,45 +62,46 @@ export const PricingSection = () => {
                  className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center"
             >
                 {tiers.map((tier) => (
-                    <NeonCard
-                        key={tier.name}
-                        isHighlighted={tier.highlighted}
-                        variants={fadeUpVariant}
-                        className={`h-full ${tier.highlighted ? 'md:-translate-y-4 md:hover:-translate-y-6' : ''}`}
-                    >
-                        {tier.highlighted && (
-                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon-cyan px-4 py-1 text-obsidian font-mono text-xs font-bold uppercase tracking-wider">
-                                Most Popular
+                    <div key={tier.name} className={tier.highlighted ? "animated-border" : ""}>
+                        <NeonCard
+                            isHighlighted={tier.highlighted}
+                            variants={fadeUpVariant}
+                            className={`h-full ${tier.highlighted ? 'md:-translate-y-4 md:hover:-translate-y-6 !border-0 bg-surface' : 'bg-surface-container-low'}`}
+                        >
+                            {tier.highlighted && (
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon-cyan px-4 py-1 text-obsidian font-mono text-xs font-bold uppercase tracking-wider z-20">
+                                    Most Popular
+                                </div>
+                            )}
+                            <div className="mb-8 border-b border-outline-variant/20 pb-8 relative z-10">
+                                <h3 className="font-mono text-xl uppercase text-on-surface mb-2 tracking-widest">{tier.name}</h3>
+                                <div className="flex items-baseline mb-4">
+                                    <span className="text-2xl text-text-muted mr-1">$</span>
+                                    <span className="font-heading text-5xl font-bold">{tier.price}</span>
+                                    {tier.price !== "Custom" && <span className="text-text-muted ml-2">/mo</span>}
+                                </div>
+                                <p className="text-text-muted text-sm font-body">{tier.description}</p>
                             </div>
-                        )}
-                        <div className="mb-8 border-b border-outline-variant/20 pb-8">
-                            <h3 className="font-mono text-xl uppercase text-on-surface mb-2 tracking-widest">{tier.name}</h3>
-                            <div className="flex items-baseline mb-4">
-                                <span className="text-2xl text-text-muted mr-1">$</span>
-                                <span className="font-heading text-5xl font-bold">{tier.price}</span>
-                                {tier.price !== "Custom" && <span className="text-text-muted ml-2">/mo</span>}
+
+                            <ul className="mb-10 flex-grow space-y-4 relative z-10">
+                                {tier.features.map((feature, idx) => (
+                                    <li key={idx} className="flex items-start">
+                                        <Check className={`w-5 h-5 mr-3 shrink-0 ${tier.highlighted ? 'text-neon-cyan' : 'text-outline-variant'}`} />
+                                        <span className="font-body text-sm text-on-surface-variant">{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <div className="mt-auto relative z-10">
+                                <CyberButton
+                                    variant={tier.highlighted ? "primary" : "ghost"}
+                                    className="w-full"
+                                >
+                                    {tier.buttonText}
+                                </CyberButton>
                             </div>
-                            <p className="text-text-muted text-sm font-body">{tier.description}</p>
-                        </div>
-
-                        <ul className="mb-10 flex-grow space-y-4">
-                            {tier.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-start">
-                                    <Check className={`w-5 h-5 mr-3 shrink-0 ${tier.highlighted ? 'text-neon-cyan' : 'text-outline-variant'}`} />
-                                    <span className="font-body text-sm text-on-surface-variant">{feature}</span>
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div className="mt-auto">
-                            <CyberButton
-                                variant={tier.highlighted ? "primary" : "ghost"}
-                                className="w-full"
-                            >
-                                {tier.buttonText}
-                            </CyberButton>
-                        </div>
-                    </NeonCard>
+                        </NeonCard>
+                    </div>
                 ))}
             </motion.div>
         </div>

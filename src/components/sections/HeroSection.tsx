@@ -50,7 +50,7 @@ export const HeroSection = () => {
                 </div>
                 <CyberGlitchText
                     text="ENTER THE NEXT ERA"
-                    className="text-5xl md:text-7xl lg:text-8xl tracking-tighter"
+                    className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tighter"
                 />
             </motion.div>
 
