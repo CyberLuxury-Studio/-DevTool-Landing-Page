@@ -4,128 +4,16 @@
 
 @layer base {
   body {
-    @apply bg-obsidian text-on-background font-body antialiased;
+    @apply bg-background text-white font-inter antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
   }
 }
 
-.bg-grid-pattern {
-  background-image: linear-gradient(to right, #3a494b1a 1px, transparent 1px),
-    linear-gradient(to bottom, #3a494b1a 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.glitch-effect {
-  position: relative;
-}
-
-.glitch-effect::before,
-.glitch-effect::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.glitch-effect::before {
-  left: 2px;
-  text-shadow: -1px 0 #ff003c;
-  clip: rect(24px, 550px, 90px, 0);
-  animation: glitch-anim-2 3s infinite linear alternate-reverse;
-}
-
-.glitch-effect::after {
-  left: -2px;
-  text-shadow: -1px 0 #00f3ff;
-  clip: rect(85px, 550px, 140px, 0);
-  animation: glitch-anim 2.5s infinite linear alternate-reverse;
-}
-
-@keyframes glitch-anim {
-  0% {
-    clip: rect(24px, 9999px, 83px, 0);
+@layer utilities {
+  .bg-glass {
+    @apply bg-[#1C1B1B]/60 backdrop-blur-md;
   }
-  20% {
-    clip: rect(81px, 9999px, 137px, 0);
-  }
-  40% {
-    clip: rect(61px, 9999px, 30px, 0);
-  }
-  60% {
-    clip: rect(104px, 9999px, 98px, 0);
-  }
-  80% {
-    clip: rect(117px, 9999px, 58px, 0);
-  }
-  100% {
-    clip: rect(32px, 9999px, 128px, 0);
-  }
-}
-
-@keyframes glitch-anim-2 {
-  0% {
-    clip: rect(101px, 9999px, 145px, 0);
-  }
-  20% {
-    clip: rect(29px, 9999px, 78px, 0);
-  }
-  40% {
-    clip: rect(16px, 9999px, 110px, 0);
-  }
-  60% {
-    clip: rect(138px, 9999px, 60px, 0);
-  }
-  80% {
-    clip: rect(106px, 9999px, 13px, 0);
-  }
-  100% {
-    clip: rect(51px, 9999px, 134px, 0);
-  }
-}
-/* Global Scanline Effect */
-.scanlines {
-  position: relative;
-}
-
-.scanlines::before {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 50;
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
-  opacity: 0.3;
-}
-
-/* Animated Gradient Border for Pricing Card */
-@property --bg-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
-@keyframes spin {
-  to {
-    --bg-angle: 360deg;
-  }
-}
-
-.animated-border {
-  position: relative;
-  border-radius: 0;
-}
-
-.animated-border::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  background: conic-gradient(from var(--bg-angle), transparent 20%, #bd00ff, #00f3ff, transparent 80%);
-  z-index: -1;
-  animation: spin 4s linear infinite;
 }

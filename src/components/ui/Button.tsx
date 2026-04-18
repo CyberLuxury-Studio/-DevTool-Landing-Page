@@ -1,34 +1,35 @@
-"use client"
-
-import React from "react"
-import { motion, HTMLMotionProps } from "framer-motion"
+import * as React from "react"
 import { cn } from "@/lib/utils"
 
-interface CyberButtonProps extends HTMLMotionProps<"button"> {
-  variant?: "primary" | "ghost"
-  glitchEffect?: boolean
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "secondary" | "ghost"
+  size?: "default" | "sm" | "lg"
 }
 
-export const CyberButton = React.forwardRef<HTMLButtonElement, CyberButtonProps>(
-  ({ className, variant = "primary", glitchEffect = false, children, ...props }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant = "primary", size = "default", ...props }, ref) => {
     return (
-      <motion.button
+      <button
         ref={ref}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
         className={cn(
-          "relative overflow-hidden border-0 px-8 py-4 font-mono font-bold uppercase tracking-wider text-sm transition-all duration-300",
-          variant === "primary" && "bg-gradient-to-r from-neon-cyan to-primary-container text-obsidian shadow-[0_0_15px_#00f3ff] hover:shadow-[0_0_25px_#00f3ff]",
-          variant === "ghost" && "bg-transparent border border-outline-variant text-neon-cyan hover:border-neon-cyan hover:shadow-[0_0_15px_rgba(0,243,255,0.2)]",
+          "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50",
+          "font-mono uppercase tracking-wider rounded-none",
+          {
+            "bg-[#00F0FF] text-[#050505] hover:bg-[#7DF4FF] shadow-[0_0_15px_rgba(0,240,255,0.4)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)]": variant === "primary",
+            "border border-[#00F0FF]/30 bg-transparent text-[#00F0FF] hover:bg-[#00F0FF]/10": variant === "secondary",
+            "bg-transparent text-white hover:text-[#00F0FF]": variant === "ghost",
+            "h-9 px-4 py-2": size === "default",
+            "h-8 px-3 text-xs": size === "sm",
+            "h-12 px-8 text-base": size === "lg",
+          },
           className
         )}
         {...props}
-      >
-        <span className={cn(glitchEffect && "glitch-effect")} data-text={typeof children === 'string' ? children : undefined}>
-          {children as React.ReactNode}
-        </span>
-      </motion.button>
+      />
     )
   }
 )
-CyberButton.displayName = "CyberButton"
+Button.displayName = "Button"
+
+export { Button }
