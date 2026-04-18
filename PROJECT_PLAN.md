@@ -1,203 +1,173 @@
-# Cyberpunk UI8 Landing Page - Project Plan
+# DevTool Landing Page: Cyberpunk Edition - Project Plan
 
-**Target Tech Stack**: Next.js 16.2.4 (App Router), Tailwind CSS, Framer Motion, Spline, TypeScript
-**Project Concept**: A high-impact, multi-section waitlist/stealth landing page with a cyberpunk/cyber aesthetic.
-
----
-
-## 1. Project Structure
-The project leverages the Next.js App Router convention, organizing components and features in a scalable manner suited for a UI8 template.
+## 1. Project Structure (Next.js App Router)
 
 ```text
-cyber-stealth-template/
+/
+├── public/                 # Static assets (images, icons, fallbacks)
+│   ├── fonts/              # Local font files (if not using next/font)
+│   └── spline-fallback.webp # Fallback image for the 3D scene
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx         # Root layout (fonts, global providers)
-│   │   ├── page.tsx           # Main landing page (composes sections)
-│   │   ├── globals.css        # Tailwind directives and custom CSS variables
-│   │   └── api/
-│   │       └── waitlist/
-│   │           └── route.ts   # Dummy/Template API route for the email form
+│   │   ├── layout.tsx      # Root layout (HTML, Body, Providers, Global Fonts/Meta)
+│   │   ├── page.tsx        # Main Landing Page Assembly
+│   │   ├── globals.css     # Tailwind imports and custom global utilities/css variables
+│   │   └── not-found.tsx   # Custom 404 page
 │   ├── components/
-│   │   ├── ui/                # Reusable, atomic UI components (Buttons, Inputs, Cards)
-│   │   │   ├── Button.tsx
-│   │   │   ├── Input.tsx
-│   │   │   ├── CyberGlitchText.tsx
-│   │   │   └── NeonBorderCard.tsx
-│   │   ├── sections/          # Page sections
-│   │   │   ├── HeroSection.tsx
-│   │   │   ├── FeaturesSection.tsx
-│   │   │   ├── PricingSection.tsx
-│   │   │   ├── CtaSection.tsx
+│   │   ├── layout/         # Layout components
+│   │   │   ├── Header.tsx
 │   │   │   └── Footer.tsx
-│   │   └── spline/            # 3D assets & Spline wrapper components
-│   │       ├── HeroSplineScene.tsx
-│   │       └── SplineFallback.tsx
+│   │   ├── sections/       # Page sections
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Features.tsx
+│   │   │   ├── HowItWorks.tsx
+│   │   │   ├── CodeShowcase.tsx
+│   │   │   ├── Pricing.tsx
+│   │   │   └── CTA.tsx
+│   │   ├── ui/             # Reusable atomic UI components
+│   │   │   ├── Button.tsx
+│   │   │   ├── Card.tsx
+│   │   │   ├── Badge.tsx
+│   │   │   ├── CodeBlock.tsx
+│   │   │   └── SplineScene.tsx # Wrapper for Spline integration
+│   │   └── animations/     # Reusable Framer Motion wrappers
+│   │       ├── FadeIn.tsx
+│   │       └── ScrollReveal.tsx
 │   ├── lib/
-│   │   ├── utils.ts           # Utility functions (e.g., Tailwind class merging via clsx/tailwind-merge)
-│   │   └── motion.ts          # Centralized Framer Motion variants
-│   ├── types/
-│   │   └── index.ts           # Global TypeScript interfaces
-│   └── assets/
-│       ├── fonts/             # Local font files (if not using next/font/google)
-│       └── images/            # Static image assets
-├── public/                    # Favicon, og-images, public static assets
-├── tailwind.config.ts         # Tailwind configuration (custom colors, animations)
-├── tsconfig.json              # TypeScript configuration
-├── next.config.mjs            # Next.js configuration
-├── package.json
-└── README.md                  # Comprehensive template documentation
+│   │   ├── utils.ts        # Utility functions (clsx, tailwind-merge)
+│   │   └── constants.ts    # Content, pricing tiers, navigation links
+│   └── types/              # TypeScript interfaces and types
+├── tailwind.config.ts      # Tailwind configuration and theme extensions
+├── tsconfig.json           # TypeScript configuration
+├── package.json            # Dependencies and scripts
+└── README.md               # UI8 Documentation (setup, dev, build)
 ```
 
----
+## 2. Section-by-Section Breakdown
 
-## 2. Design System
+### A. Hero Section
+- **Layout:** Split layout (desktop) / Stacked (mobile). Left side: H1, subheadline, primary/secondary CTA buttons. Right side: Embedded Spline 3D Scene.
+- **Content:** "Deploy to the Edge. Instantly." Subheadline focusing on global, secure, zero-config cloud deployments.
+- **Spline Usage:** A glowing, abstract floating server cluster or a cybernetic data node that rotates slowly and reacts to mouse movement.
+- **Animations:** Staggered fade-up for text elements. 3D scene scales in smoothly.
+- **Tailwind Strategy:** `min-h-screen`, `flex`, `items-center`, `bg-grid-white/[0.02]` (for subtle grid background), text gradients.
 
-### Color Palette (Cyberpunk Theme)
-*   **Backgrounds**:
-    *   `bg-obsidian`: `#0a0a0c` (Main background)
-    *   `bg-void`: `#050505` (Alternating section background)
-    *   `bg-surface`: `#111116` (Cards and panels)
-*   **Neons & Accents**:
-    *   `neon-cyan`: `#00f3ff` (Primary actions, bright glows)
-    *   `neon-pink`: `#ff003c` (Secondary accents, hover states, "glitch" effects)
-    *   `neon-purple`: `#bd00ff` (Gradients and atmospheric lighting)
-*   **Text**:
-    *   `text-primary`: `#ffffff` (Headings)
-    *   `text-muted`: `#8a8a93` (Body text, secondary labels)
-    *   `text-cyber`: `#00f3ff` (Highlighted text)
+### B. Features Grid (Bento Box Layout)
+- **Layout:** CSS Grid-based "Bento Box" featuring 4-5 cards of varying sizes.
+- **Content:** "Engineered for Velocity." Features: Global Edge Network, DDoS Protection, Instant Rollbacks, Native CI/CD.
+- **Animations:** `whileInView` scroll reveal for each card, with a subtle hover scaling and border-glow effect.
+- **Tailwind Strategy:** `grid-cols-1 md:grid-cols-3 md:grid-rows-2`, `gap-6`, custom `bg-glass` utility, `border-white/10`.
+
+### C. Code Showcase / "How It Works"
+- **Layout:** Centered section header above a large interactive terminal/code editor UI window.
+- **Content:** "Infrastructure as Code. Literal Code." Interactive tabs to switch between YAML, JSON, and CLI snippet examples showing how easy it is to deploy.
+- **Animations:** Syntax-highlighted text types out like a terminal (using Framer Motion `staggerChildren`).
+- **Tailwind Strategy:** `font-mono` (JetBrains Mono), `bg-obsidian`, `border-cyan-500/30`, custom scrollbar hiding.
+
+### D. Pricing
+- **Layout:** 3-column card layout (Hobby, Pro, Enterprise). Pro tier is highlighted/scaled up.
+- **Content:** Transparent pricing. Cyberpunk themed names (e.g., "Neon", "Void", "Quantum").
+- **Animations:** Staggered reveal. Highlighted card has a continuous slow-pulsing neon border.
+- **Tailwind Strategy:** `flex flex-col md:flex-row`, `relative`, `ring-1`, `shadow-[0_0_30px_rgba(6,182,212,0.2)]` for the glow.
+
+### E. CTA (Call to Action)
+- **Layout:** Full width, centered content container with a strong glowing background blob/gradient.
+- **Content:** "Initialize Your Cluster. Free forever for individuals." Large input field for email and a "Deploy Now" button.
+- **Animations:** Background gradient rotates slowly. Button has a strong hover state (text color inversion + background glow).
+- **Tailwind Strategy:** `bg-gradient-to-r from-cyan-500/20 to-purple-500/20`, `backdrop-blur-xl`.
+
+### F. Footer
+- **Layout:** 4-column grid for links, left-aligned logo and tagline. Bottom row for copyright and socials.
+- **Content:** Standard footer links, system status indicator (green glowing dot "All systems operational").
+- **Tailwind Strategy:** `border-t border-white/10`, `text-neutral-400`, `hover:text-cyan-400`.
+
+## 3. Design System
+
+### Colors
+- **Backgrounds:** Void (`#050505`), Obsidian (`#0F0F13`), Deep Space (`#13131A`).
+- **Accents (Neon):**
+  - Cyan (Primary): `#00F0FF`
+  - Purple (Secondary): `#B026FF`
+  - Pink (Warning/Highlight): `#FF003C`
+- **Text:** White (`#FFFFFF`), Muted (`#A1A1AA`), Code Muted (`#71717A`).
 
 ### Typography
-*   **Primary/Headings**: *Space Grotesk* (or *Orbitron* for a more aggressive look). Next/Font configuration will handle this.
-*   **Body/Data**: *Inter* or *JetBrains Mono* for a tech-oriented, clean feel.
+- **Headings (H1-H6):** `Orbitron` (High-impact, geometric, sci-fi) or `Space Grotesk` (Modern, clean, tech-focused).
+- **Body:** `Inter` (Legibility).
+- **Code/Monospace:** `JetBrains Mono` (Terminals, snippets, UI tags).
 
-### Spacing Scale
-Standard Tailwind spacing scale with an emphasis on macro-whitespace to let the glowing elements breathe (e.g., `py-24`, `py-32` for sections, `gap-8` and `gap-12` for flex/grid layouts).
+### Reusable Components
+- `Button`: Variants (Primary Neon, Secondary Outline, Ghost). Includes built-in hover glow effects.
+- `Card`: Glassmorphism background, 1px subtle border, optional inner noise texture.
+- `CodeBlock`: Takes a string and language, renders formatted code with syntax highlighting (e.g., using `prism-react-renderer` or standard HTML/CSS).
+- `Badge`: Small pill-shaped text for tags (e.g., "Beta", "New").
 
-### Reusable Component List
-*   `CyberButton`: A button with a glowing cyan/pink border, hover states that increase the glow, and optional glitch effect on click.
-*   `WaitlistInput`: An email input field with a dark background, a glowing bottom border on focus, and placeholder text styled like a terminal prompt (`> enter your email_`).
-*   `NeonCard`: A content card (used in Features/Pricing) with a subtle gradient border and an inner `bg-surface` layer.
-*   `GlitchText`: A typographic component that applies CSS/Framer Motion-based RGB splitting on hover or load.
+## 4. Animation Plan (Framer Motion)
 
----
-
-## 3. Section-by-Section Breakdown
-
-### 1. Hero Section (Waitlist Focus)
-*   **Layout**: Full-viewport height (`min-h-screen`). Split vertically or layered: Text/Form on the left (or centered), and the Spline 3D scene occupying the right (or full background with text overlay).
-*   **Content**: H1 (e.g., "ENTER THE NEXT ERA"), Subtitle ("Join the stealth beta. Limited access."), and the single email Waitlist form.
-*   **Tailwind Strategy**: `relative w-full h-screen flex items-center justify-center overflow-hidden bg-obsidian`.
-*   **Animations**: Staggered fade-up for text. Glitch effect on the H1. The email form slides in from the bottom.
-*   **Spline Usage**: A high-impact 3D object (e.g., a glowing cybernetic core or floating abstract geometries) positioned using absolute positioning behind or next to the content.
-
-### 2. Features Section
-*   **Layout**: CSS Grid (`grid-cols-1 md:grid-cols-3 gap-8`).
-*   **Content**: 3 to 6 feature cards detailing what makes the product unique. Icons should be tech-focused (lucide-react or custom SVG).
-*   **Tailwind Strategy**: `container mx-auto py-24`. Cards use `bg-surface backdrop-blur-md border border-white/5`.
-*   **Animations**: Scroll-triggered. Cards stagger in (`opacity-0 translate-y-10` to `opacity-100 translate-y-0`) using Framer Motion's `whileInView`. Glowing borders activate sequentially.
-
-### 3. Pricing Section
-*   **Layout**: Flexbox or Grid. Usually 2-3 tiers.
-*   **Content**: Tier names (e.g., "Hacker", "Cyber", "God-Mode"), prices, feature lists, and a CTA button per tier. The middle tier should be highlighted.
-*   **Tailwind Strategy**: Highlighted tier gets an absolute positioned pseudo-element for a continuous `neon-purple` to `neon-cyan` gradient border.
-*   **Animations**: On hover, the cards lift slightly (`hover:-translate-y-2`) and cast a stronger, colored drop shadow (`shadow-[0_0_30px_rgba(0,243,255,0.2)]`).
-
-### 4. CTA Section
-*   **Layout**: Centered, constrained width (`max-w-3xl`).
-*   **Content**: "Ready to upload your consciousness?" + Waitlist Form repeated.
-*   **Tailwind Strategy**: A distinct background pattern (e.g., a subtle grid `bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]`).
-*   **Animations**: Pulse animation on a background radial gradient to draw the eye to the input field.
-
-### 5. Footer
-*   **Layout**: Simple flex layout.
-*   **Content**: Copyright, links to socials (represented by minimalist icons), and legal links.
-*   **Tailwind Strategy**: `border-t border-white/10 pt-8 pb-12 flex justify-between items-center text-text-muted text-sm`.
-
----
-
-## 4. Animation Plan
-
-All animations are handled via **Framer Motion**. Centralized variants are stored in `lib/motion.ts`.
-
-*   **FadeUp Variant**:
-    ```javascript
-    export const fadeUpVariant = {
-      hidden: { opacity: 0, y: 30 },
-      visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-    };
-    ```
-*   **Stagger Container**: Used on the Features and Pricing grids to stagger the children.
-    ```javascript
-    export const staggerContainer = {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-    };
-    ```
-*   **Scroll-Triggered**: All sections wrap their content in a `<motion.div>` with `initial="hidden"`, `whileInView="visible"`, `viewport={{ once: true, amount: 0.2 }}`.
-*   **Micro-interactions**: Buttons use `whileHover={{ scale: 1.05 }}` and `whileTap={{ scale: 0.95 }}`.
-
----
+- **Entry Animations (Hero):**
+  - Variant: `initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: "easeOut" }}`
+  - Used for headings and buttons. Staggered by `0.1s`.
+- **Scroll Reveals (Sections):**
+  - Variant: `initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}`
+  - Applied to Feature Cards, Pricing Tiers.
+- **Micro-interactions:**
+  - `whileHover={{ scale: 1.05 }}` on standard cards.
+  - Button Hover: Background shadow expands `box-shadow: 0 0 20px #00F0FF`.
+- **Terminal Typing Effect:**
+  - Parent variant with `staggerChildren`, child variant fading in text spans sequentially to simulate typing.
 
 ## 5. Spline Integration Plan
 
-*   **Embedding**: Use `@splinetool/react-spline`.
-*   **Scene Setup**: The scene should be optimized in Spline before exporting. Keep polygon counts low, bake lighting if possible, and rely on material emissions for the "glow" rather than heavy dynamic point lights.
-*   **Performance Strategy (Crucial)**:
-    *   **Lazy Loading**: The Spline component MUST be dynamically imported with `ssr: false` in Next.js to prevent server-side hydration errors and reduce initial JS payload.
-        ```javascript
-        const SplineScene = dynamic(() => import('@splinetool/react-spline'), {
-          ssr: false,
-          loading: () => <SplineFallback />
-        });
-        ```
-    *   **Fallback**: While the 3D scene loads, `<SplineFallback />` displays a static, compressed webp image or a CSS-based glowing orb placeholder to ensure the layout doesn't shift (Cumulative Layout Shift) and the user isn't staring at a blank space.
-
----
+- **Scene Concept:** A stylized, floating server rack or an abstract isometric "cloud edge" node. Dark materials, emitting cyan/purple lights. The scene is interactive (mouse orbit/pan restricted to a small degree).
+- **Component Wrapper:** Create `<SplineScene />` wrapper around `@splinetool/react-spline`.
+- **Lazy Loading:** Use Next.js `next/dynamic` to load the Spline component asynchronously to prevent blocking the initial page load.
+  ```typescript
+  const Spline = dynamic(() => import('@splinetool/react-spline'), {
+    ssr: false,
+    loading: () => <div className="animate-pulse bg-white/5 rounded-xl w-full h-full" />,
+  })
+  ```
+- **Performance:** Export the Spline scene with optimized textures and a low polygon count. Ensure a static `.webp` fallback image is used if WebGL fails or loading takes too long.
 
 ## 6. Component Architecture
 
-*   **`HeroSection`**:
-    *   *Props*: None.
-    *   *Responsibilities*: Layout the hero text, WaitlistInput, and dynamically load the Spline scene.
-*   **`WaitlistInput`**:
-    *   *Props*: `onSubmit: (email: string) => void`, `buttonText?: string`.
-    *   *Responsibilities*: Manage local state for the email input, handle form submission (mock API call), display success/error state.
-*   **`FeatureCard`**:
-    *   *Props*: `title: string`, `description: string`, `icon: React.ReactNode`, `delay?: number`.
-    *   *Responsibilities*: Render individual feature with hover states. Apply the Framer Motion variant based on the `delay` prop.
-*   **`PricingCard`**:
-    *   *Props*: `tier: string`, `price: string`, `features: string[]`, `isHighlighted?: boolean`.
-    *   *Responsibilities*: Render pricing tier. If `isHighlighted` is true, apply the neon gradient border and prominent CTA button.
-*   **`CyberButton`**:
-    *   *Props*: Standard HTML button props + `variant?: 'primary' | 'ghost'`.
-    *   *Responsibilities*: Render a highly styled, reusable button with motion interactions.
-
----
+- **`Layout/Header.tsx`**: Renders navigation and mobile menu toggle. Props: `navLinks` array.
+- **`UI/Button.tsx`**:
+  - Props: `variant` ("neon", "outline", "ghost"), `size` ("sm", "md", "lg"), `href` (optional), `children`.
+  - Logic: Merges tailwind classes using `clsx` and `twMerge`.
+- **`UI/Card.tsx`**:
+  - Props: `className`, `children`, `glowColor`.
+  - Logic: Renders base glassmorphism styles and applies dynamic hover glow based on props.
+- **`Sections/CodeShowcase.tsx`**:
+  - State: `activeTab` (index of currently selected code snippet).
+  - Handles tab switching and passing correct data to `<CodeBlock />`.
 
 ## 7. Performance Strategy
 
-*   **Image Optimization**: All static images (fallback assets, backgrounds) must use the Next.js `<Image>` component for automatic webp/avif conversion, responsive sizing, and lazy loading.
-*   **Code Splitting**: Native to Next.js App Router. Sections not immediately visible in the viewport can be dynamically imported if they contain heavy libraries.
-*   **Font Loading**: Use `next/font/google` for Space Grotesk/Inter. This ensures zero layout shift, as fonts are self-hosted and preloaded automatically by Next.js.
-*   **Spline Loading**: As detailed in section 5, dynamic imports and SSR disabling.
-*   **Tailwind**: Utilize standard Tailwind compilation which automatically purges unused CSS.
+- **Image Optimization:** All static images (logos, fallback backgrounds) served via `next/image` for automatic WebP conversion and responsive sizing.
+- **Font Loading:** Use `next/font/google` for Inter, Space Grotesk, and JetBrains Mono. This ensures fonts are preloaded and eliminates cumulative layout shift (CLS).
+- **Spline Lazy Loading:** (As described above), dynamic import without SSR.
+- **CSS Bundle:** Tailwind CSS ensures only used styles are purged and shipped.
+- **Code Splitting:** Next.js App Router automatically code-splits per route and component boundary.
 
----
+## 8. UI8 Packaging Checklist (Code Only)
 
-## 8. UI8 Packaging Checklist (Code Submission)
+To prepare this template for a professional UI8 sale, the final zip file must be clean and developer-ready:
 
-To ensure this template is accepted and highly rated on UI8, the final zip file should be structured cleanly:
-
-1.  **Clean Repository**: Remove `.git`, `node_modules`, and `.next` folders before zipping.
-2.  **Env Variables**: Provide a `.env.example` file (even if it's just mock variables for the waitlist API). DO NOT include `.env.local`.
-3.  **Documentation**:
-    *   A stellar `README.md` containing:
-        *   Project overview and tech stack.
-        *   Prerequisites (Node version).
-        *   Step-by-step installation instructions (`npm install`, `npm run dev`).
-        *   Instructions on how to change colors in `tailwind.config.ts`.
-        *   Instructions on how to replace the Spline URL with the buyer's own 3D scene.
-4.  **Code Comments**: Ensure complex Framer Motion logic or Tailwind utility combinations (like gradient borders) are well-commented.
-5.  **Linting**: Ensure the code passes `npm run lint` and `npm run build` with zero errors or warnings. Provide a clean `package.json` with strict versioning.
-6.  **Assets Folder**: Ensure the `public` folder contains placeholder images that are free for commercial use (Unsplash/Pexels) or custom-generated, to avoid copyright issues upon sale.
+1. **Clean Project State:**
+   - Delete `node_modules`, `.next`, and `.env.local` files.
+   - Ensure `package.json` has an updated version, clean script list, and exact dependency versions.
+2. **Configuration Checklist:**
+   - `tailwind.config.ts` is fully documented for buyers to easily change brand colors.
+   - `next.config.js` is clean of any local testing domains.
+3. **Documentation (`README.md`):**
+   - High-quality hero image of the template.
+   - **Quick Start Guide:** Steps to `npm install` and `npm run dev`.
+   - **Customization Guide:** Explain where to find the Spline URL to replace it, how to change the primary Neon colors in Tailwind, and where the content constants (`lib/constants.ts`) live.
+   - **Deployment Instructions:** Guide for Vercel deployment.
+4. **Code Quality:**
+   - Run `npm run lint` and ensure 0 warnings.
+   - Run `npm run build` to verify a successful production build without type errors.
+5. **Zip Packaging:**
+   - Folder structure: `Template_Name_v1.0/` containing the source code.
+   - Include a `changelog.txt` for future updates.
