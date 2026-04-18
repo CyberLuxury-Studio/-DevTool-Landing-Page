@@ -7,8 +7,13 @@ import { WaitlistInput } from "@/components/ui/Input"
 import { fadeUpVariant } from "@/lib/motion"
 import { motion } from "framer-motion"
 
-// Using a placeholder for the Spline scene to avoid large downloads
-// during dev, and to match the generated HTML
+// Dynamically import the Spline component, disabling SSR to avoid hydration mismatch
+const Spline = dynamic(() => import("@splinetool/react-spline"), {
+  ssr: false,
+  loading: () => <SplinePlaceholder />,
+})
+
+// Using a placeholder for the Spline scene while loading
 const SplinePlaceholder = () => (
     <div className="w-full max-w-[600px] aspect-square relative flex items-center justify-center border border-outline-variant/20 bg-surface-container-low/40 backdrop-blur-3xl overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-tr from-neon-purple/10 to-neon-cyan/10 opacity-50"></div>
@@ -16,7 +21,7 @@ const SplinePlaceholder = () => (
         <div className="absolute bottom-0 w-full h-[1px] bg-gradient-to-r from-transparent via-neon-purple/50 to-transparent"></div>
 
         <p className="font-mono text-sm tracking-[0.2em] uppercase text-neon-cyan/70 animate-pulse select-none z-10">
-            [ Scene Rendering ]
+            [ Loading Scene Core ]
         </p>
 
         {/* Tactical Markers */}
@@ -77,9 +82,10 @@ export const HeroSection = () => {
              initial={{ opacity: 0, scale: 0.9 }}
              animate={{ opacity: 1, scale: 1 }}
              transition={{ duration: 1, delay: 0.5 }}
-             className="hidden lg:flex justify-end items-center"
+             className="hidden lg:flex justify-end items-center h-[600px] w-full relative"
         >
-            <SplinePlaceholder />
+            <div className="absolute inset-0 pointer-events-none z-10 bg-gradient-to-l from-transparent to-obsidian/50"></div>
+            <Spline scene="https://prod.spline.design/qE1d6i-5YtE1z5T6/scene.splinecode" className="w-full h-full" />
         </motion.div>
       </div>
     </section>
