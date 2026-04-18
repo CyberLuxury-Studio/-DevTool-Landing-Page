@@ -10,7 +10,7 @@ interface NeonCardProps extends HTMLMotionProps<"div"> {
 }
 
 export const NeonCard = React.forwardRef<HTMLDivElement, NeonCardProps>(
-  ({ className, children, hoverGlow = "cyan", isHighlighted = false, ...props }, ref) => {
+  ({ className, children, hoverGlow = "cyan", isHighlighted = false, style, whileHover, ...props }, ref) => {
 
     const glowClass = {
         cyan: "hover:border-neon-cyan hover:shadow-[0_0_20px_rgba(0,243,255,0.15)]",
@@ -21,7 +21,8 @@ export const NeonCard = React.forwardRef<HTMLDivElement, NeonCardProps>(
     return (
       <motion.div
         ref={ref}
-        whileHover={{ y: -5 }}
+        whileHover={whileHover || { y: -5 }}
+        style={style}
         className={cn(
           "relative flex flex-col p-8 bg-surface-container-low backdrop-blur-md border transition-all duration-700 ease-out",
           isHighlighted ? "border-neon-purple shadow-[0_0_20px_rgba(189,0,255,0.15)]" : "border-white/5",

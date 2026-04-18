@@ -62,46 +62,53 @@ export const PricingSection = () => {
                  className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center"
             >
                 {tiers.map((tier) => (
-                    <div key={tier.name} className={tier.highlighted ? "animated-border" : ""}>
-                        <NeonCard
-                            isHighlighted={tier.highlighted}
-                            variants={fadeUpVariant}
-                            className={`h-full ${tier.highlighted ? 'md:-translate-y-4 md:hover:-translate-y-6 !border-0 bg-surface' : 'bg-surface-container-low'}`}
-                        >
-                            {tier.highlighted && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon-cyan px-4 py-1 text-obsidian font-mono text-xs font-bold uppercase tracking-wider z-20">
-                                    Most Popular
-                                </div>
-                            )}
-                            <div className="mb-8 border-b border-outline-variant/20 pb-8 relative z-10">
-                                <h3 className="font-mono text-xl uppercase text-on-surface mb-2 tracking-widest">{tier.name}</h3>
-                                <div className="flex items-baseline mb-4">
-                                    <span className="text-2xl text-text-muted mr-1">$</span>
-                                    <span className="font-heading text-5xl font-bold">{tier.price}</span>
-                                    {tier.price !== "Custom" && <span className="text-text-muted ml-2">/mo</span>}
-                                </div>
-                                <p className="text-text-muted text-sm font-body">{tier.description}</p>
+                    // We remove md:-translate-y-4 here. Instead, we use motion.div initial static Y
+                    // inside the NeonCard (or wrapper if we need it). Since NeonCard handles hover,
+                    // we can pass a specific initial y-offset if it's highlighted to avoid Framer/Tailwind conflict.
+                    <NeonCard
+                        key={tier.name}
+                        isHighlighted={tier.highlighted}
+                        variants={fadeUpVariant}
+                        // Remove Tailwind translate entirely to avoid conflict with Framer Motion
+                        className={`h-full ${tier.highlighted ? '!border-0 bg-surface animated-border' : 'bg-surface-container-low'}`}
+                        // Instead, pass the initial elevation via Framer Motion props directly to the NeonCard
+                        style={{ y: tier.highlighted ? -16 : 0 }}
+                        // And adjust the hover state so it lifts *from* its elevated position
+                        whileHover={{ y: tier.highlighted ? -21 : -5 }}
+                    >
+                        {tier.highlighted && (
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-neon-cyan px-4 py-1 text-obsidian font-mono text-xs font-bold uppercase tracking-wider z-20">
+                                Most Popular
                             </div>
-
-                            <ul className="mb-10 flex-grow space-y-4 relative z-10">
-                                {tier.features.map((feature, idx) => (
-                                    <li key={idx} className="flex items-start">
-                                        <Check className={`w-5 h-5 mr-3 shrink-0 ${tier.highlighted ? 'text-neon-cyan' : 'text-outline-variant'}`} />
-                                        <span className="font-body text-sm text-on-surface-variant">{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <div className="mt-auto relative z-10">
-                                <CyberButton
-                                    variant={tier.highlighted ? "primary" : "ghost"}
-                                    className="w-full"
-                                >
-                                    {tier.buttonText}
-                                </CyberButton>
+                        )}
+                        <div className="mb-8 border-b border-outline-variant/20 pb-8 relative z-10">
+                            <h3 className="font-mono text-xl uppercase text-on-surface mb-2 tracking-widest">{tier.name}</h3>
+                            <div className="flex items-baseline mb-4">
+                                <span className="text-2xl text-text-muted mr-1">$</span>
+                                <span className="font-heading text-5xl font-bold">{tier.price}</span>
+                                {tier.price !== "Custom" && <span className="text-text-muted ml-2">/mo</span>}
                             </div>
-                        </NeonCard>
-                    </div>
+                            <p className="text-text-muted text-sm font-body">{tier.description}</p>
+                        </div>
+
+                        <ul className="mb-10 flex-grow space-y-4 relative z-10">
+                            {tier.features.map((feature, idx) => (
+                                <li key={idx} className="flex items-start">
+                                    <Check className={`w-5 h-5 mr-3 shrink-0 ${tier.highlighted ? 'text-neon-cyan' : 'text-outline-variant'}`} />
+                                    <span className="font-body text-sm text-on-surface-variant">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="mt-auto relative z-10">
+                            <CyberButton
+                                variant={tier.highlighted ? "primary" : "ghost"}
+                                className="w-full"
+                            >
+                                {tier.buttonText}
+                            </CyberButton>
+                        </div>
+                    </NeonCard>
                 ))}
             </motion.div>
         </div>
