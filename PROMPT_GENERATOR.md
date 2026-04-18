@@ -1,71 +1,71 @@
-# Prompt to Generate the NeonDeploy Prototype
+# Prompt to Generate the Cyberpunk Waitlist Prototype
 
-Copy and paste the following prompt into v0, Bolt, or Cursor to generate the prototype frontend codebase for the NeonDeploy landing page.
+Copy and paste the following prompt into v0, Bolt, or Cursor to generate the prototype frontend codebase for the Waitlist/Stealth landing page template.
 
 ---
 
 **Prompt:**
 
-You are an expert Next.js developer, UI/UX designer, and Tailwind CSS master. Your task is to generate the complete frontend code for a single-page DevTool landing page named "NeonDeploy".
+You are an expert Next.js developer, UI/UX designer, and Tailwind CSS master. Your task is to generate the complete frontend code for a single-page Waitlist/Stealth landing page.
 
 **Core Aesthetic & Vibe:**
-The theme is "High-Contrast Synthwave / Cyberpunk". It must look professional enough to be sold as a premium template on UI8.
-- Backgrounds should be deep voids (e.g., `bg-[#09090B]`) or midnight purple (`bg-[#130A1F]`).
-- Use glowing neon accents heavily: Synthwave Cyan (`#00F0FF`), Hot Pink (`#FF003C`), and Deep Purple (`#8A2BE2`).
-- The fonts should be a clean sans-serif for headings (like *Geist* or *Inter*) and a monospace font for code snippets (like *JetBrains Mono* or *Fira Code*).
-- Include a subtle CRT-style grid background for the entire page using CSS gradients.
+The theme is "High-Impact Cyberpunk / Stealth Mode". It must look professional enough to be sold as a premium template on UI8.
+- The main background should be Obsidian (`bg-[#0a0a0c]`), alternating with a deep Void (`bg-[#050505]`) for different sections.
+- Use glowing neon accents heavily: Neon Cyan (`#00f3ff`), Neon Pink (`#ff003c`), and Neon Purple (`#bd00ff`).
+- The fonts should be a sharp, technical sans-serif for headings (like *Space Grotesk* or *Orbitron*) and a clean font for body text (like *Inter* or *JetBrains Mono*).
+- Include subtle glowing background elements and subtle grid lines (`bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)]`).
 
 **Tech Stack:**
 - React (Next.js App Router conventions, but generating standard React components is fine if within a single file prompt)
-- Tailwind CSS (use extensive arbitrary values for glows, e.g., `shadow-[0_0_15px_#00F0FF]`)
+- Tailwind CSS (use extensive arbitrary values for glows, e.g., `shadow-[0_0_15px_#00f3ff]`)
 - Framer Motion (for animations)
 - Lucide React (for icons)
 
 **Sections to Generate:**
 
-1. **Header (Sticky Navigation):**
-   - Glassmorphism effect (`backdrop-blur-md bg-black/50 border-b border-white/10`).
-   - Logo on the left (text "NeonDeploy" with a cyan glow).
-   - Links in the center (Features, Pricing, Docs).
-   - "Start Deploying" button on the right (neon cyan background, black text, hover effect).
+1. **Hero Section (Waitlist Focus):**
+   - Full viewport height (`min-h-screen`), flex layout.
+   - Large, glitch-effect H1: "ENTER THE NEXT ERA".
+   - Subtitle: "Join the stealth beta. Limited access." in muted slate text.
+   - An email input field (`WaitlistInput`) with a dark background (`#111116`), a glowing bottom border on focus, and placeholder text styled like a terminal prompt (`> enter your email_`).
+   - A `CyberButton` to submit the form, featuring a glowing cyan/pink border and hover states that increase the glow.
+   - A placeholder for a 3D Spline scene. Create a beautifully styled dark glassmorphism card (with a glowing neon purple and cyan border) that contains a pulsing placeholder text: `[ Spline 3D Scene Placeholder ]`.
 
-2. **Hero Section:**
-   - Two columns on desktop.
-   - Left column: Headline "Ship Code at the Speed of Light". Subheadline explaining fast deployments. Primary CTA "Get Started" and secondary CTA "View Docs".
-   - Right column: A placeholder for a 3D scene. Create a beautifully styled dark glassmorphism card (with a glowing neon magenta and cyan border) that contains a pulsing placeholder text: `[ Spline 3D Scene Placeholder: Ambient Looping Server Core ]`.
+2. **Features Section (CSS Grid Layout):**
+   - A 3-column grid (`grid-cols-1 md:grid-cols-3`).
+   - Create 3-6 feature cards using a `NeonCard` component (`bg-[#111116]`, backdrop blur, and subtle border `border-white/5`).
+   - Content should focus on stealth/cyber capabilities. Use tech-focused icons (from Lucide React).
+   - On hover, the borders should softly glow in neon-pink or cyan.
 
-3. **Features Section (Alternating Layout):**
-   - Feature 1: Fast Deployments. Text on left. On the right, build an interactive "Terminal Window" component (macOS style dots in top left). Inside, display a code snippet typing out `git push neondeploy main` followed by a fast green success output.
-   - Feature 2: API Monitoring. Text on right. On the left, build a glowing glassmorphism card showing a mock dashboard with neon glowing stats and a line chart placeholder.
-   - Feature 3: Code Analysis. Text on left. On the right, build a code block that highlights a simulated syntax error in hot pink, and shows a "fixed" state in cyan.
+3. **Pricing Section (3-Tier):**
+   - A grid of 3 cards representing pricing tiers: "Hacker", "Cyber", "God-Mode".
+   - Cards should have a deep dark background (`bg-[#111116]`).
+   - The middle "Cyber" tier must be highlighted: elevated slightly, with a continuous absolute-positioned neon-purple to neon-cyan gradient border.
+   - Include pricing amounts, feature lists with checkmarks, and CTA buttons.
+   - Hover effects should lift the cards slightly and cast a strong cyan colored drop shadow (`shadow-[0_0_30px_rgba(0,243,255,0.2)]`).
 
-4. **Pricing Section (3-Tier Grid):**
-   - A grid of 3 cards: Hobby, Pro, Enterprise.
-   - The cards should have a deep dark background and a 1px subtle border.
-   - The middle "Pro" card must be highlighted: elevated slightly, with a strong Synthwave Cyan glowing border, and a "Most Popular" glowing badge.
-   - Include pricing amounts and a list of features with checkmark icons.
-   - Add hover effects so the cards slightly lift and their glow intensifies.
+4. **CTA Section:**
+   - Centered banner, constrained width.
+   - Headline: "Ready to upload your consciousness?"
+   - Repeat the `WaitlistInput` form.
+   - Background should have the subtle grid pattern and a pulsing radial gradient behind the input.
 
-5. **CTA Section:**
-   - A wide, centered banner section.
-   - Heavy ambient gradient background (deep purples and dark pinks fading into the black void).
-   - Headline: "Ready to hack the mainframe? Join 10,000+ developers."
-   - Large, glowing "Sign Up Now" button.
-
-6. **Footer:**
-   - Standard 4-column layout (Product, Resources, Company, Legal).
-   - Use muted slate text.
-   - A large, very faint neon logo watermark in the background of the footer area.
+5. **Footer:**
+   - Simple flex layout with top border (`border-t border-white/10`).
+   - Muted text (`#8a8a93`), size `text-sm`.
+   - Copyright text, minimalist social links (icons), and legal links.
 
 **Animation Requirements (using Framer Motion):**
 - Wrap major sections in a `whileInView` fade-up reveal so they animate smoothly as the user scrolls down.
+- The `WaitlistInput` should slide in from the bottom.
+- Grids (Features/Pricing) should use `staggerChildren` to reveal cards one by one.
 - Buttons should scale up slightly on hover (`whileHover={{ scale: 1.05 }}`).
-- The terminal typing effect can be simulated with basic React state or Framer Motion stagger.
+- Apply a simulated "glitch" animation to the main Hero H1 on load.
 
 **Constraints:**
 - Generate clean, modern, semantic HTML/React.
 - Ensure the layout is fully responsive (mobile, tablet, desktop).
-- Use Tailwind for absolutely all styling. Do not write custom CSS unless it is for the background grid pattern, which should be in a Tailwind utility class or inline style.
+- Use Tailwind for absolutely all styling. Do not write custom CSS unless it is for the background grid pattern or glitch effects, which should be in Tailwind utility classes or inline styles.
 - Make the code modular and well-commented so I can easily extract components later.
 
 Please output the complete code.
