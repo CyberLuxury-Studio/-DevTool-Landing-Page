@@ -5,6 +5,10 @@ import { Features } from "@/components/sections/Features"
 import { CodeShowcase } from "@/components/sections/CodeShowcase"
 import { Pricing } from "@/components/sections/Pricing"
 import { CTA } from "@/components/sections/CTA"
+import { FAQSection } from "@/components/sections/FAQSection";
+import { CTASection } from "@/components/sections/CTASection";
+
+
 
 export default function Home() {
   return (
@@ -15,6 +19,8 @@ export default function Home() {
       <CodeShowcase />
       <Pricing />
       <CTA />
+      <FAQSection />
+      <CTASection />
       <Footer />
     </main>
   )
