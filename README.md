@@ -76,3 +76,7 @@ To save emails to a real database:
 
 ## License
 Free for personal and commercial use as part of your application. You may not resell this template as-is or as a derivative template.
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
