@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ScrollReveal } from "../animations/ScrollReveal";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [

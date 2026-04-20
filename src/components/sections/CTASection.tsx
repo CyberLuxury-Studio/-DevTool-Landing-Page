@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ScrollReveal } from "../animations/ScrollReveal";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 export function CTASection() {
   return (

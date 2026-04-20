@@ -1,90 +1,122 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/Button"
-import { motion } from "framer-motion"
-import { Check } from "lucide-react"
+import { Check, Trophy, Shield, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
-const plans = [
+const tiers = [
   {
-    name: "Neon",
-    price: "$0",
-    description: "For personal projects and experiments.",
-    features: ["100GB Bandwidth", "Unlimited Deployments", "Community Support", "Shared Edge Nodes"],
-    highlight: false
+    name: "NOVICE",
+    price: "0",
+    description: "Perfect for side quests and indie devs.",
+    features: ["Up to 3 projects", "Basic analytics", "Community support", "1GB Storage"],
+    cta: "Start Playing Free",
+    popular: false,
   },
   {
-    name: "Quantum",
-    price: "$49",
-    description: "For professional teams scaling fast.",
-    features: ["1TB Bandwidth", "Priority Build Queue", "Email Support", "Dedicated Edge Nodes"],
-    highlight: true
+    name: "PRO GAMER",
+    price: "29",
+    description: "For serious devs pushing to production.",
+    features: [
+      "Unlimited projects",
+      "Advanced analytics",
+      "Priority 24/7 support",
+      "100GB Storage",
+      "Custom domains",
+    ],
+    cta: "Equip Pro Pass",
+    popular: true,
   },
   {
-    name: "Void",
-    price: "Custom",
-    description: "For enterprise scale and security.",
-    features: ["Unlimited Bandwidth", "Dedicated Account Manager", "24/7 Phone Support", "Custom SLA"],
-    highlight: false
-  }
-]
+    name: "GOD MODE",
+    price: "99",
+    description: "Maximum power for elite guilds.",
+    features: [
+      "Everything in Pro",
+      "Dedicated server instance",
+      "SLA guarantee",
+      "Unlimited Storage",
+      "Custom integrations",
+    ],
+    cta: "Unlock God Mode",
+    popular: false,
+  },
+];
 
 export function Pricing() {
   return (
-    <section className="py-24 relative bg-surface">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-sans font-bold mb-4">Transparent Scaling</h2>
-          <p className="text-muted font-mono text-sm">
-            // No hidden fees. Pay for what you use.
-          </p>
-        </div>
+    <section className="py-24 relative overflow-hidden" id="pricing">
+      <div className="absolute inset-0 bg-accent/30 pointer-events-none" />
+      <div className="container mx-auto px-6 relative z-10">
+        <ScrollReveal>
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 uppercase tracking-tight">
+              Choose Your <span className="text-primary">Loadout</span>
+            </h2>
+            <p className="text-xl text-muted-foreground font-medium">
+              Transparent pricing. No loot boxes. Upgrade or downgrade anytime.
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
-          {plans.map((plan, i) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className={`relative bg-surface-high p-8 border ${
-                plan.highlight
-                  ? "border-primary shadow-[0_0_30px_rgba(0,240,255,0.15)] md:-translate-y-4"
-                  : "border-white/5"
-              }`}
-            >
-              {plan.highlight && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-1 bg-primary text-[#050505] text-xs font-mono font-bold uppercase tracking-widest">
-                  Recommended
-                </div>
-              )}
-
-              <h3 className="font-mono text-xl uppercase text-white mb-2">{plan.name}</h3>
-              <div className="mb-4">
-                <span className="text-4xl font-bold font-sans">{plan.price}</span>
-                {plan.price !== "Custom" && <span className="text-muted">/mo</span>}
-              </div>
-              <p className="text-sm text-muted mb-8 h-10">{plan.description}</p>
-
-              <ul className="space-y-4 mb-8">
-                {plan.features.map(f => (
-                  <li key={f} className="flex items-center text-sm">
-                    <Check className="w-4 h-4 text-primary mr-3" />
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Button
-                variant={plan.highlight ? "primary" : "secondary"}
-                className="w-full"
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto items-center">
+          {tiers.map((tier, index) => (
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <motion.div
+                whileHover={{ y: -10 }}
+                className={`rounded-3xl p-8 border-2 ${
+                  tier.popular
+                    ? "bg-card border-primary relative shadow-[0_0_40px_rgba(59,130,246,0.3)] transform md:-translate-y-4"
+                    : "bg-background border-border"
+                }`}
               >
-                {plan.price === "Custom" ? "Contact Sales" : "Select Plan"}
-              </Button>
-            </motion.div>
+                {tier.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-cyan-400 text-white text-xs font-black uppercase tracking-widest rounded-full shadow-lg">
+                    Most Popular
+                  </div>
+                )}
+                
+                <div className="mb-8">
+                  <div className="flex items-center gap-2 mb-2">
+                    {tier.name === "NOVICE" && <Shield className="w-5 h-5 text-muted-foreground" />}
+                    {tier.name === "PRO GAMER" && <Zap className="w-5 h-5 text-primary" />}
+                    {tier.name === "GOD MODE" && <Trophy className="w-5 h-5 text-yellow-500" />}
+                    <h3 className="text-2xl font-black uppercase tracking-wide">{tier.name}</h3>
+                  </div>
+                  <p className="text-muted-foreground font-medium">{tier.description}</p>
+                </div>
+
+                <div className="mb-8">
+                  <span className="text-6xl font-black">${tier.price}</span>
+                  <span className="text-muted-foreground font-bold">/mo</span>
+                </div>
+
+                <ul className="space-y-4 mb-8">
+                  {tier.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <Check className="w-4 h-4 text-primary font-bold" />
+                      </div>
+                      <span className="text-foreground font-medium">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest transition-colors ${
+                  tier.popular
+                    ? "bg-gradient-to-r from-primary to-cyan-500 text-white hover:opacity-90 shadow-lg"
+                    : "bg-accent text-foreground hover:bg-accent/80 border-2 border-border"
+                }`}>
+                  {tier.cta}
+                </motion.button>
+              </motion.div>
+            </ScrollReveal>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
